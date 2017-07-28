@@ -1,3 +1,4 @@
+import java.text.NumberFormat;
 import java.util.*;
 
 public class main {
@@ -9,6 +10,7 @@ public class main {
 		Product product;// = new Product();
 		ArrayList <Product> productList = new ArrayList();
 		Scanner scan = new Scanner(System.in);
+		NumberFormat moneyFormat = NumberFormat.getCurrencyInstance();
 				
 		//variables
 		boolean isDone=false;
@@ -22,24 +24,28 @@ public class main {
 		//get tax rate
 		System.out.println("What is the tax rate? Please enter an integer.");
 		taxRate=scan.nextDouble();
-		
-		
+		scan.nextLine();
+				
 		
 		
 		while(!isDone) //start loop
 		{
 			product = new Product();
+			//get item name
+			System.out.println("What's the name of the product?");
+			product.setName(scan.nextLine());
 			//get item price
 			System.out.println("What's the item price?");
 			product.setPrice(scan.nextDouble());
+			scan.nextLine();
 			//get item description
 			System.out.println("What's the item description?");
-			product.setDescr(scan.next());
+			product.setDescr(scan.nextLine());
 			//add Product object to array
 			productList.add(product);
 			//prompt if user wants to add another item
 			System.out.println("Do you want to add another item? 'y/n'");
-			choice=scan.next();
+			choice=scan.nextLine();
 			//if not, exit loop
 			if(choice.equalsIgnoreCase("n"))
 			{
@@ -52,30 +58,31 @@ public class main {
 			 */
 			else if(!choice.equalsIgnoreCase("y"))
 			{
+				System.out.println("Choice:"+choice);
 				System.out.println("Incorrect choice.  Please type 'y' or 'n'");
 				choice=scan.nextLine();
 				isDone=true;
 			}
 		}
-		
-		//iterate through ArrayList and 1)add price to subtotal and 2)print the price
+		System.out.printf("\n\n\nThank you for ordering products with us.\n"
+				+ "The list of items you purchased is below:\n\n");
+		//iterate through ArrayList and 1)add price to subtotal and 2)print the item name and price
 		for(int counter=0; counter<productList.size(); counter++) //maybe can be done with forEach and a lambda exp?
 		{
-			//product= new Product();
+			product= new Product();
 			subtotal+=productList.get(counter).getPrice();
-			System.out.printf("The price of this item is $%.2f\n",productList.get(counter).getPrice());
+			System.out.printf("%s $%.2f\n",productList.get(counter).getName(), productList.get(counter).getPrice());
 		}
 
 		taxAmt=(taxRate/100)*subtotal;//calculate tax amount
 		total=subtotal+taxAmt;//calculate total
 		
-		System.out.printf("The total tax is: $%.2f\n",taxAmt); //print tax amount
-		System.out.printf("Your total is: $%.2f\n",total); //print total
-		
-		
-		
-		
+			
+		System.out.println("The total tax is: " +moneyFormat.format(taxAmt)); //print tax amount
+		System.out.println("Your total is: "+moneyFormat.format(total)); //print total
 		
 	}
+	
+	
 
 }
