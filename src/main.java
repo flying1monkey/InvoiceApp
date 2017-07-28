@@ -64,22 +64,24 @@ public class main {
 				isDone=true;
 			}
 		}
-		System.out.printf("\n\n\nThank you for ordering products with us.\n"
-				+ "The list of items you purchased is below:\n\n");
+		System.out.printf("\n\n\nThank you for ordering products with us.%n"
+				+ "The list of items you purchased is below:%n%n");
+		System.out.printf("%-20s %-13s %-30s%n", "Product name", "Price", "Description");
+		System.out.println("――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――");
 		//iterate through ArrayList and 1)add price to subtotal and 2)print the item name and price
 		for(int counter=0; counter<productList.size(); counter++) //maybe can be done with forEach and a lambda exp?
 		{
 			product= new Product();
 			subtotal+=productList.get(counter).getPrice();
-			System.out.printf("%s $%.2f\n",productList.get(counter).getName(), productList.get(counter).getPrice());
+			System.out.printf("%-20s $%-12.2f %-30s%n",productList.get(counter).getName(), productList.get(counter).getPrice(), productList.get(counter).getDescr());
 		}
 
 		taxAmt=(taxRate/100)*subtotal;//calculate tax amount
 		total=subtotal+taxAmt;//calculate total
 		
 			
-		System.out.println("The total tax is: " +moneyFormat.format(taxAmt)); //print tax amount
-		System.out.println("Your total is: "+moneyFormat.format(total)); //print total
+		//System.out.println("The total tax is: " +moneyFormat.format(taxAmt)); //print tax amount
+		//System.out.println("Your total is: "+moneyFormat.format(total)); //print total
 		
 	}
 	
